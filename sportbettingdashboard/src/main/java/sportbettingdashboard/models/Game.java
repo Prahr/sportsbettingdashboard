@@ -14,6 +14,19 @@ public class Game {
     private String mgmHomeOdds;
     private String mgmAwayOdds;
 
+    public Game(String sport, String homeTeam, String awayTeam, Timestamp startTime, String dkHomeOdds, String dkAwayOdds, String fdHomeOdds, String fdAwayOdds, String mgmHomeOdds, String mgmAwayOdds) {
+        this.sport = sport;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.startTime = startTime;
+        this.dkHomeOdds = dkHomeOdds;
+        this.dkAwayOdds = dkAwayOdds;
+        this.fdHomeOdds = fdHomeOdds;
+        this.fdAwayOdds = fdAwayOdds;
+        this.mgmHomeOdds = mgmHomeOdds;
+        this.mgmAwayOdds = mgmAwayOdds;
+    }
+
     public String getSport() {
         return sport;
     }
