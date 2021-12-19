@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 public class NFLGamesController {
-    /*
     @Autowired
     GameDao gameDao;
 
@@ -27,6 +26,4 @@ public class NFLGamesController {
         model.addAttribute("games", games);
         return "nflgames";
     }
-
-     */
 }

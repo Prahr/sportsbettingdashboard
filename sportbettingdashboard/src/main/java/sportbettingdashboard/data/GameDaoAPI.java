@@ -94,7 +94,7 @@ public class GameDaoAPI implements GameDao{
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://odds.p.rapidapi.com/v1/odds?sport=icehockey_nhl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
+                .url("https://odds.p.rapidapi.com/v1/odds?sport=basketball_nba&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
                 .get()
                 .addHeader("x-rapidapi-host", "odds.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", "dc3da50a39msh592d0c0db2d6f20p167c1cjsnaffa15d4d332")
@@ -160,7 +160,7 @@ public class GameDaoAPI implements GameDao{
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://odds.p.rapidapi.com/v1/odds?sport=icehockey_nhl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
+                .url("https://odds.p.rapidapi.com/v1/odds?sport=americanfootball_nfl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
                 .get()
                 .addHeader("x-rapidapi-host", "odds.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", "dc3da50a39msh592d0c0db2d6f20p167c1cjsnaffa15d4d332")
