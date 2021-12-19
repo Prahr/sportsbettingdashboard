@@ -12,6 +12,11 @@ import sportbettingdashboard.models.Game;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +47,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, timestamp;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -60,23 +65,26 @@ public class GameDaoAPI implements GameDao{
                     fdHome = odds.getString(0);
                     fdAway = odds.getString(1);
                 }
-                else if(site.getString("site_nice").equals("BetMGM")){
+                else if(site.getString("site_nice").equals("BetRivers")){
                     mgmHome = odds.getString(0);
                     mgmAway = odds.getString(1);
                 }
             }
 
-            timestamp = game.getString("commence_time");
+            startTime = game.getString("commence_time");
 
-            timestamp = StringUtils.substring(timestamp, 0, timestamp.length() - 1);
+            ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            if(StringUtils.countMatches(timestamp, ":") == 1){
-                timestamp+= ":00";
-            }
+            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        }
 
-            Timestamp startTimestamp = Timestamp.valueOf(timestamp.replace("T", " "));
-
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimestamp, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+        String startTimeString;
+        for(Game game : games){
+            ZonedDateTime dateTimeStart = game.getStartTime();
+            ZonedDateTime zonedStartTime = dateTimeStart.withZoneSameInstant(ZoneId.systemDefault());
+            startTimeString = zonedStartTime.format(formatter);
+            game.setStartTimeString(startTimeString);
         }
         return games;
     }
@@ -86,7 +94,7 @@ public class GameDaoAPI implements GameDao{
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://odds.p.rapidapi.com/v1/odds?sport=basketball_nba&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
+                .url("https://odds.p.rapidapi.com/v1/odds?sport=icehockey_nhl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
                 .get()
                 .addHeader("x-rapidapi-host", "odds.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", "dc3da50a39msh592d0c0db2d6f20p167c1cjsnaffa15d4d332")
@@ -105,7 +113,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, timestamp;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -123,23 +131,26 @@ public class GameDaoAPI implements GameDao{
                     fdHome = odds.getString(0);
                     fdAway = odds.getString(1);
                 }
-                else if(site.getString("site_nice").equals("BetMGM")){
+                else if(site.getString("site_nice").equals("BetRivers")){
                     mgmHome = odds.getString(0);
                     mgmAway = odds.getString(1);
                 }
             }
 
-            timestamp = game.getString("commence_time");
+            startTime = game.getString("commence_time");
 
-            timestamp = StringUtils.substring(timestamp, 0, timestamp.length() - 1);
+            ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            if(StringUtils.countMatches(timestamp, ":") == 1){
-                timestamp+= ":00";
-            }
+            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        }
 
-            Timestamp startTimestamp = Timestamp.valueOf(timestamp.replace("T", " "));
-
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimestamp, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+        String startTimeString;
+        for(Game game : games){
+            ZonedDateTime dateTimeStart = game.getStartTime();
+            ZonedDateTime zonedStartTime = dateTimeStart.withZoneSameInstant(ZoneId.systemDefault());
+            startTimeString = zonedStartTime.format(formatter);
+            game.setStartTimeString(startTimeString);
         }
         return games;
     }
@@ -149,7 +160,7 @@ public class GameDaoAPI implements GameDao{
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://odds.p.rapidapi.com/v1/odds?sport=americanfootball_nfl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
+                .url("https://odds.p.rapidapi.com/v1/odds?sport=icehockey_nhl&region=us&mkt=h2h&dateFormat=iso&oddsFormat=american")
                 .get()
                 .addHeader("x-rapidapi-host", "odds.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", "dc3da50a39msh592d0c0db2d6f20p167c1cjsnaffa15d4d332")
@@ -168,7 +179,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, timestamp;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -186,23 +197,26 @@ public class GameDaoAPI implements GameDao{
                     fdHome = odds.getString(0);
                     fdAway = odds.getString(1);
                 }
-                else if(site.getString("site_nice").equals("BetMGM")){
+                else if(site.getString("site_nice").equals("BetRivers")){
                     mgmHome = odds.getString(0);
                     mgmAway = odds.getString(1);
                 }
             }
 
-            timestamp = game.getString("commence_time");
+            startTime = game.getString("commence_time");
 
-            timestamp = StringUtils.substring(timestamp, 0, timestamp.length() - 1);
+            ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            if(StringUtils.countMatches(timestamp, ":") == 1){
-                timestamp+= ":00";
-            }
+            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        }
 
-            Timestamp startTimestamp = Timestamp.valueOf(timestamp.replace("T", " "));
-
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimestamp, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+        String startTimeString;
+        for(Game game : games){
+            ZonedDateTime dateTimeStart = game.getStartTime();
+            ZonedDateTime zonedStartTime = dateTimeStart.withZoneSameInstant(ZoneId.systemDefault());
+            startTimeString = zonedStartTime.format(formatter);
+            game.setStartTimeString(startTimeString);
         }
         return games;
     }

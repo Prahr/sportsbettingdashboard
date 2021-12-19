@@ -1,20 +1,23 @@
 package sportbettingdashboard.models;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class Game {
     private String sport;
     private String homeTeam;
     private String awayTeam;
-    private Timestamp startTime;
+    private ZonedDateTime startTime;
     private String dkHomeOdds;
     private String dkAwayOdds;
     private String fdHomeOdds;
     private String fdAwayOdds;
     private String mgmHomeOdds;
     private String mgmAwayOdds;
+    private String startTimeString;
 
-    public Game(String sport, String homeTeam, String awayTeam, Timestamp startTime, String dkHomeOdds, String dkAwayOdds, String fdHomeOdds, String fdAwayOdds, String mgmHomeOdds, String mgmAwayOdds) {
+    public Game(String sport, String homeTeam, String awayTeam, ZonedDateTime startTime, String dkHomeOdds, String dkAwayOdds, String fdHomeOdds, String fdAwayOdds, String mgmHomeOdds, String mgmAwayOdds) {
         this.sport = sport;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -51,11 +54,11 @@ public class Game {
         this.awayTeam = awayTeam;
     }
 
-    public Timestamp getStartTime() {
+    public ZonedDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(ZonedDateTime startTime) {
         this.startTime = startTime;
     }
 
@@ -105,5 +108,13 @@ public class Game {
 
     public void setMgmAwayOdds(String mgmAwayOdds) {
         this.mgmAwayOdds = mgmAwayOdds;
+    }
+
+    public String getStartTimeString() {
+        return startTimeString;
+    }
+
+    public void setStartTimeString(String startTimeString) {
+        this.startTimeString = startTimeString;
     }
 }

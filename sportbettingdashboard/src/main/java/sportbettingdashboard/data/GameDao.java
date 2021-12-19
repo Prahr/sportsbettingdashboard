@@ -10,4 +10,5 @@ public interface GameDao {
     List<Game> getNHLGames() throws IOException, JSONException;
     List<Game> getNBAGames() throws IOException, JSONException;
     List<Game> getNFLGames() throws IOException, JSONException;
+
 }
