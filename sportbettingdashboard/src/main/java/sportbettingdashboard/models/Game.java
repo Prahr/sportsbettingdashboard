@@ -1,10 +1,9 @@
 package sportbettingdashboard.models;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class Game {
+    private String id;
     private String sport;
     private String homeTeam;
     private String awayTeam;
@@ -13,11 +12,16 @@ public class Game {
     private String dkAwayOdds;
     private String fdHomeOdds;
     private String fdAwayOdds;
-    private String mgmHomeOdds;
-    private String mgmAwayOdds;
+    private String riverHomeOdds;
+    private String riverAwayOdds;
     private String startTimeString;
+    private boolean isFavorite;
 
-    public Game(String sport, String homeTeam, String awayTeam, ZonedDateTime startTime, String dkHomeOdds, String dkAwayOdds, String fdHomeOdds, String fdAwayOdds, String mgmHomeOdds, String mgmAwayOdds) {
+    public Game() {
+    }
+
+    public Game(String id, String sport, String homeTeam, String awayTeam, ZonedDateTime startTime, String dkHomeOdds, String dkAwayOdds, String fdHomeOdds, String fdAwayOdds, String mgmHomeOdds, String mgmAwayOdds) {
+        this.id = id;
         this.sport = sport;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -26,8 +30,16 @@ public class Game {
         this.dkAwayOdds = dkAwayOdds;
         this.fdHomeOdds = fdHomeOdds;
         this.fdAwayOdds = fdAwayOdds;
-        this.mgmHomeOdds = mgmHomeOdds;
-        this.mgmAwayOdds = mgmAwayOdds;
+        this.riverHomeOdds = mgmHomeOdds;
+        this.riverAwayOdds = mgmAwayOdds;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getSport() {
@@ -94,20 +106,20 @@ public class Game {
         this.fdAwayOdds = fdAwayOdds;
     }
 
-    public String getMgmHomeOdds() {
-        return mgmHomeOdds;
+    public String getRiverHomeOdds() {
+        return riverHomeOdds;
     }
 
-    public void setMgmHomeOdds(String mgmHomeOdds) {
-        this.mgmHomeOdds = mgmHomeOdds;
+    public void setRiverHomeOdds(String mgmHomeOdds) {
+        this.riverHomeOdds = mgmHomeOdds;
     }
 
-    public String getMgmAwayOdds() {
-        return mgmAwayOdds;
+    public String getRiverAwayOdds() {
+        return riverAwayOdds;
     }
 
-    public void setMgmAwayOdds(String mgmAwayOdds) {
-        this.mgmAwayOdds = mgmAwayOdds;
+    public void setRiverAwayOdds(String mgmAwayOdds) {
+        this.riverAwayOdds = mgmAwayOdds;
     }
 
     public String getStartTimeString() {
@@ -116,5 +128,13 @@ public class Game {
 
     public void setStartTimeString(String startTimeString) {
         this.startTimeString = startTimeString;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

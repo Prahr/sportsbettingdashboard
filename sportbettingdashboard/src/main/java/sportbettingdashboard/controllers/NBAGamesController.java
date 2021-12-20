@@ -9,6 +9,7 @@ import sportbettingdashboard.data.FavoriteGameDao;
 import sportbettingdashboard.data.GameDao;
 import sportbettingdashboard.models.Game;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +24,23 @@ public class NBAGamesController {
     @GetMapping("nbagames")
     public String displayNHLGames(Model model) throws JSONException, IOException {
         List<Game> games = gameDao.getNBAGames();
+        List<String> favoriteGameIds = favoriteGameDao.getAllFavoriteGames();
         model.addAttribute("games", games);
+        model.addAttribute("favoriteGameIds", favoriteGameIds);
         return "nbagames";
+    }
+
+    @GetMapping("addFavoriteNBAGame")
+    public String addFavoriteGame(HttpServletRequest request){
+        String id = request.getParameter("id");
+        favoriteGameDao.addFavoriteGame(id);
+        return "redirect:/nbagames";
+    }
+
+    @GetMapping("deleteFavoriteNBAGame")
+    public String deleteFavoriteGame(HttpServletRequest request){
+        String id = request.getParameter("id");
+        favoriteGameDao.deleteFavoriteGameById(id);
+        return "redirect:/nbagames";
     }
 }

@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="nbagames">NBA</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="favoritegames">Watch List</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -51,13 +54,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="game : ${games}">
+                <tr th:each="game, stat : ${games}">
                     <td th:text="${game.startTimeString}" class="text-warning">Start Time</td>
                     <td th:text='${game.homeTeam}' class="text-warning">Home Team</td>
                     <td th:text='${game.awayTeam}' class="text-warning">Away Team</td>
                     <td th:text='${game.dkHomeOdds + "/" + game.dkAwayOdds}' class="text-warning">Draft Kings Odds</td>
                     <td th:text='${game.fdHomeOdds + "/" + game.fdAwayOdds}' class="text-warning">Fan Duel Odds</td>
-                    <td th:text='${game.mgmHomeOdds + "/" + game.mgmAwayOdds}' class="text-warning">BetRiver Odds</td>
+                    <td th:text='${game.riverHomeOdds + "/" + game.riverAwayOdds}' class="text-warning">BetRiver Odds</td>
+                    <td th:if="${favoriteGameIds.contains(game.id)}"><a href="#" th:href="@{/deleteFavoriteNHLGame(id=${game.id})}">Delete</a></td>
+                    <td th:unless="${favoriteGameIds.contains(game.id)}"><a href="#" th:href="@{/addFavoriteNHLGame(id=${game.id})}">Favorite</a></td>
                 </tr>
                 </tbody>
             </table>

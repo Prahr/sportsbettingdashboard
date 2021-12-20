@@ -3,7 +3,6 @@ package sportbettingdashboard.data;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,9 +10,6 @@ import org.springframework.stereotype.Repository;
 import sportbettingdashboard.models.Game;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +43,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, id = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -71,11 +67,13 @@ public class GameDaoAPI implements GameDao{
                 }
             }
 
+            id = game.getString("id");
+
             startTime = game.getString("commence_time");
 
             ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+            games.add(i, new Game(id, game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
@@ -113,7 +111,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, id = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -137,11 +135,13 @@ public class GameDaoAPI implements GameDao{
                 }
             }
 
+            id = game.getString("id");
+
             startTime = game.getString("commence_time");
 
             ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+            games.add(i, new Game(id, game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
@@ -179,7 +179,7 @@ public class GameDaoAPI implements GameDao{
 
         int limit = Jarray.length();
         List<Game> games = new ArrayList<>();
-        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, startTime;
+        String dkHome = null, dkAway = null, fdHome = null, fdAway = null, mgmHome = null, mgmAway = null, id = null, startTime;
 
         for(int i = 0; i < limit; i++){
             JSONObject game = Jarray.getJSONObject(i);
@@ -203,11 +203,13 @@ public class GameDaoAPI implements GameDao{
                 }
             }
 
+            id = game.getString("id");
+
             startTime = game.getString("commence_time");
 
             ZonedDateTime startTimeDate = ZonedDateTime.parse(startTime);
 
-            games.add(i, new Game(game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
+            games.add(i, new Game(id, game.getString("sport_nice"), teams.getString(0), teams.getString(1), startTimeDate, dkHome, dkAway, fdHome, fdAway, mgmHome, mgmAway));
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
